@@ -1,3 +1,11 @@
 # TicTacToe
 
-** TODO: Add description **
+
+Setup
+
+`mix deps && mix test`
+
+
+Run
+
+`elixir main.ex`
