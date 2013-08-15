@@ -6,8 +6,8 @@ defmodule TicTacToe do
   end
 
   def play_game(board, marker) do
-    System.cmd('clear')
     ConsoleDisplay.puts(ConsoleDisplay.print_board(board), IO)
+
     new_board = Board.place_move(board, player_move(board), marker)
 
     if(game_over?(new_board)) do

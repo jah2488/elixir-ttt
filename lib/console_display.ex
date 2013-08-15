@@ -9,6 +9,7 @@ defmodule ConsoleDisplay do
   @cell_spacer "|"
 
   def welcome,     do: "Elixir Tic Tac Toe"
+
   def puts(msg, out // TestIO), do: out.puts(msg)
 
   def print_board(board // Board.new_board) do

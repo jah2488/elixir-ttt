@@ -20,7 +20,6 @@ defmodule Rules do
       if cell in 0..9 do
         if player_wins?(Board.place_move(board, cell, marker), marker) do
           cell
-        else
         end
       else
         cell
