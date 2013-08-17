@@ -8,7 +8,7 @@ defmodule ConsoleDisplay do
   @row_spacer  "\n---+---+---\n"
   @cell_spacer "|"
 
-  def welcome,     do: "Elixir Tic Tac Toe"
+  def welcome, do: "Elixir Tic Tac Toe"
 
   def puts(msg, out // TestIO), do: out.puts(msg)
 
@@ -23,15 +23,15 @@ defmodule ConsoleDisplay do
     Enum.zip(board, @board_labels)
   end
 
-  def split_board( board // board_with_labels) do
-    [board
-        |> Enum.take(3),
-      board
-        |> Enum.drop(3)
-        |> Enum.take(3),
-      board
-        |> Enum.drop(6)
-        |> Enum.take(3)]
+  def split_board(board // board_with_labels) do
+      [board
+          |> Enum.take(3),
+        board
+          |> Enum.drop(3)
+          |> Enum.take(3),
+        board
+          |> Enum.drop(6)
+          |> Enum.take(3)]
   end
 
   def print_row(row) do

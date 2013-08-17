@@ -18,8 +18,8 @@ defmodule RulesTest do
 
   test "filter_moves: takes win over a block" do
     board = [:x, 1, :x, :o, :x, :o, :o, 7, :o]
-    assert filter_moves(board, :x) == [:x, 1, :x, :o, :x, :o, :o, nil, :o]
-    assert filter_moves(board, :o) == [:x, nil, :x, :o, :x, :o, :o, 7, :o]
+    assert filter_available_moves(board, :x) == [1, 7]
+    assert filter_available_moves(board, :o) == [7, 1]
   end
 
   test "player_wins?: Returns winning marker -> horizontal" do

@@ -10,11 +10,8 @@ defmodule TicTacToe do
 
     new_board = Board.place_move(board, player_move(board), marker)
 
-    if(game_over?(new_board)) do
-      start
-    else
-      play_game(new_board, opposite(marker))
-    end
+    unless game_over?(new_board), do: play_game(new_board, opposite(marker))
+    start # Insert Game Over Logic Here
   end
 
   def game_over?(board) do
