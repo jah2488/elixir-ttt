@@ -4,6 +4,32 @@ defmodule RulesTest do
   use ExUnit.Case
   import Rules
 
+  test "split_duplicates" do
+    assert choose_most_common([1,1,2]) == 1
+    assert choose_most_common([7,7,7,1,1,1,7]) == 7
+  end
+
+  test "negawat: takes open move" do
+    board = [:x, nil, :x, :o, :x, :o, :o, :x, :o]
+    assert negawat(board, :x) == 1
+    assert negawat(board, :o) == 1
+  end
+
+  test "negawat: takes win over block for x" do
+    board = [:x, nil, :x, :o, :x, :o, :o, nil, :o]
+    assert negawat(board, :x) == 1
+  end
+
+  test "negawat: takes win over block for o" do
+    board = [:x, nil, :x, :o, :x, :o, :o, nil, :o]
+    assert negawat(board, :o) == 7
+  end
+
+  test "negawat: takes o" do
+    assert negawat(Board.new_board, :x) == 0
+    assert negawat(Board.new_board, :o) == 0
+  end
+
   test "best_move: takes open moves" do
     board = [:x, nil, :x, :o, :x, :o, :o, :x, :o]
     assert best_move(board, :x) == 1

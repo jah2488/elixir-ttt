@@ -6,11 +6,12 @@ defmodule TicTacToe do
   end
 
   def play_game(board, marker) do
+    IO.puts System.cmd('clear')
     ConsoleDisplay.puts(ConsoleDisplay.print_board(board), IO)
 
-    new_board = Board.place_move(board, player_move(board), marker)
+    new_board = Board.place_move(board, player_move(board, marker), marker)
 
-    unless game_over?(new_board), do: play_game(new_board, opposite(marker))
+    unless game_over?(new_board), do: play_game(new_board, Rules.opposite(marker))
     start # Insert Game Over Logic Here
   end
 
@@ -18,24 +19,19 @@ defmodule TicTacToe do
     Enum.any? lc marker inlist [:x, :o], do: Rules.player_wins?(board, marker)
   end
 
-  def player_move(board) do
+  def player_move(board, :o), do: Rules.negawat(board, :o)
+  def player_move(board, :x) do
     move = case String.strip(IO.gets('-> ')) do
-      ""   -> player_move(board)
+      ""   -> player_move(board, :x)
       move -> binary_to_integer(move)
     end
 
-    if(valid?(board, move)) do
-      move
-    else
-      player_move(board)
-    end
+    unless(valid?(board, move), do: player_move(board, :x))
+    move
   end
 
 
   def valid?(board, move) when  (move in 0..8), do: Board.move_available(board, move)
   def valid?(    _, move) when !(move in 0..8), do: false
-
-  def opposite(:x), do: :o
-  def opposite(:o), do: :x
 
 end

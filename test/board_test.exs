@@ -9,7 +9,7 @@ defmodule BoardTest do
   end
 
   test "Place Move: Returns Board with Move" do
-    assert place_move(1, :x) == [nil, :x, nil, nil, nil, nil, nil, nil, nil]
+    assert place_move(new_board, 1, :x) == [nil, :x, nil, nil, nil, nil, nil, nil, nil]
   end
 
   test "Place Move: Updates Current Board with Move" do

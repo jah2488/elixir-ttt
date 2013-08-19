@@ -8,7 +8,8 @@ defmodule Board do
 
   def place_move(board, :x , _), do: board
   def place_move(board, :o , _), do: board
-  def place_move(board // new_board, move, marker) do
+  def place_move(board, nil, _), do: board
+  def place_move(board, move, marker) do
       board
         |> list_to_tuple
         |> set_elem(move, marker)
