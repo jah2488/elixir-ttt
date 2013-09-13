@@ -5,16 +5,16 @@ defmodule BoardTest do
   import Board
 
   test "New Board: Returns Empty Board" do
-    assert new_board == [nil, nil, nil, nil, nil, nil, nil, nil, nil]
+    assert new_board == [:blank, :blank, :blank, :blank, :blank, :blank, :blank, :blank, :blank]
   end
 
   test "Place Move: Returns Board with Move" do
-    assert place_move(new_board, 1, :x) == [nil, :x, nil, nil, nil, nil, nil, nil, nil]
+    assert place_move(new_board, 1, :x) == [:blank, :x, :blank, :blank, :blank, :blank, :blank, :blank, :blank]
   end
 
   test "Place Move: Updates Current Board with Move" do
-    board = [nil, :x, nil, nil, nil, nil, nil, nil, nil]
-    assert place_move(board, 0, :o) == [:o, :x, nil, nil, nil, nil, nil, nil, nil]
+    board = [:blank, :x, :blank, :blank, :blank, :blank, :blank, :blank, :blank]
+    assert place_move(board, 0, :o) == [:o, :x, :blank, :blank, :blank, :blank, :blank, :blank, :blank]
   end
 
   test "Move Available: Returns True for Empty Board." do
@@ -22,7 +22,7 @@ defmodule BoardTest do
   end
 
   test "Move Available: Returns True false for full board." do
-    board = [nil, :x, nil, nil, nil, nil, nil, nil, nil]
+    board = [:blank, :x, :blank, :blank, :blank, :blank, :blank, :blank, :blank]
     assert move_available(board, 1) == false
   end
 

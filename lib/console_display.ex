@@ -38,7 +38,7 @@ defmodule ConsoleDisplay do
     Enum.map_join(row, @cell_spacer, fn(cell) -> print_cell(cell) end)
   end
 
-  def print_cell({ nil,  num }), do: " #{num} "
-  def print_cell({ marker, _ }), do: " #{marker} "
+  def print_cell({ :blank,  num }), do: " #{num} "
+  def print_cell({ marker,    _ }), do: " #{marker} "
 
 end

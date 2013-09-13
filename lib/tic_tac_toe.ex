@@ -11,15 +11,11 @@ defmodule TicTacToe do
 
     new_board = Board.place_move(board, player_move(board, marker), marker)
 
-    unless game_over?(new_board), do: play_game(new_board, Rules.opposite(marker))
+    unless Rules.game_over?(new_board), do: play_game(new_board, Rules.opposite(marker))
     start # Insert Game Over Logic Here
   end
 
-  def game_over?(board) do
-    Enum.any? lc marker inlist [:x, :o], do: Rules.player_wins?(board, marker)
-  end
-
-  def player_move(board, :o), do: Rules.negawat(board, :o)
+  def player_move(board, :o), do: Rules.move(board, :o)
   def player_move(board, :x) do
     move = case String.strip(IO.gets('-> ')) do
       ""   -> player_move(board, :x)

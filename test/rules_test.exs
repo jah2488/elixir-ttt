@@ -9,35 +9,35 @@ defmodule RulesTest do
     assert choose_most_common([7,7,7,1,1,1,7]) == 7
   end
 
-  test "negawat: takes open move" do
-    board = [:x, nil, :x, :o, :x, :o, :o, :x, :o]
-    assert negawat(board, :x) == 1
-    assert negawat(board, :o) == 1
+  test "move: takes open move" do
+    board = [:x, :blank, :x, :o, :x, :o, :o, :x, :o]
+    assert move(board, :x) == 1
+    assert move(board, :o) == 1
   end
 
-  test "negawat: takes win over block for x" do
-    board = [:x, nil, :x, :o, :x, :o, :o, nil, :o]
-    assert negawat(board, :x) == 1
+  test "move: takes win over block for x" do
+    board = [:x, :blank, :x, :o, :x, :o, :o, :blank, :o]
+    assert move(board, :x) == 1
   end
 
-  test "negawat: takes win over block for o" do
-    board = [:x, nil, :x, :o, :x, :o, :o, nil, :o]
-    assert negawat(board, :o) == 7
+  test "move: takes win over block for o" do
+    board = [:x, :blank, :x, :o, :x, :o, :o, :blank, :o]
+    assert move(board, :o) == 7
   end
 
-  test "negawat: takes o" do
-    assert negawat(Board.new_board, :x) == 0
-    assert negawat(Board.new_board, :o) == 0
+  test "move: takes o" do
+    assert move(Board.new_board, :x) == 0
+    assert move(Board.new_board, :o) == 0
   end
 
   test "best_move: takes open moves" do
-    board = [:x, nil, :x, :o, :x, :o, :o, :x, :o]
+    board = [:x, :blank, :x, :o, :x, :o, :o, :x, :o]
     assert best_move(board, :x) == 1
     assert best_move(board, :o) == 1
   end
 
   test "best_move: takes win over a block" do
-    board = [:x, nil, :x, :o, :x, :o, :o, nil, :o]
+    board = [:x, :blank, :x, :o, :x, :o, :o, :blank, :o]
     assert best_move(board, :x) == 1
     assert best_move(board, :o) == 7
   end
@@ -48,18 +48,44 @@ defmodule RulesTest do
     assert filter_available_moves(board, :o) == [7, 1]
   end
 
+  test "stalemate: returns true if the board contains no blank markers" do
+    board = [:x, :o, :x, :o, :x, :o, :o, :o, :o]
+    assert stalemate(board) == true
+  end
+
+  test "available_moves: returns an empty list for an ended game" do
+    board = [:x, :o, :x, :o, :x, :o, :o, :o, :o]
+    assert available_moves(board) == []
+  end
+
   test "player_wins?: Returns winning marker -> horizontal" do
-    board = [:x, :x, :x, nil, nil, nil, nil, nil, nil]
+    board = [:x, :x, :x, :blank, :blank, :blank, :blank, :blank, :blank]
     assert player_wins?(board, :x) == true
   end
 
   test "player_wins?: Returns winning marker -> vertical" do
-    board = [:x, nil, nil, :x, nil, nil, :x, nil, nil]
+    board = [:x, :blank, :blank, :x, :blank, :blank, :x, :blank, :blank]
     assert player_wins?(board, :x) == true
   end
 
   test "player_wins?: Returns winning marker -> diag" do
-    board = [:o, nil, nil, nil, :o, nil, nil, nil, :o]
+    board = [:o, :blank, :blank, :blank, :o, :blank, :blank, :blank, :o]
     assert player_wins?(board, :o) == true
+  end
+
+  test "choose_most_common: returns first elem if all the like." do
+    assert choose_most_common([1,1,1]) == 1
+  end
+
+  test "choose_most_common: returns first most common elem odd." do
+    assert choose_most_common([1,1,2]) == 1
+  end
+
+  test "choose_most_common: returns first most common elem even." do
+    assert choose_most_common([1,1,2,3]) == 1
+  end
+
+  test "choose_most_common: returns first elem when even." do
+    assert choose_most_common([1,1,2,2]) == 1
   end
 end

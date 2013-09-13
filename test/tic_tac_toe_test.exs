@@ -10,7 +10,7 @@ defmodule TicTacToeTest do
   end
 
   test "game_over?" do
-    assert game_over?(new_board) == false
+    assert Rules.game_over?(new_board) == false
   end
 
   test "game_over?: true for a board with a winning move set" do
@@ -18,7 +18,7 @@ defmodule TicTacToeTest do
               |> place_move(0, :x)
               |> place_move(1, :x)
               |> place_move(2, :x)
-    assert game_over?(board) == true
+    assert Rules.game_over?(board) == true
   end
 
   test "valid? in range and valid" do
