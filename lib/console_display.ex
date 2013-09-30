@@ -39,6 +39,7 @@ defmodule ConsoleDisplay do
   end
 
   def print_cell({ :blank,  num }), do: " #{num} "
-  def print_cell({ marker,    _ }), do: " #{marker} "
+  def print_cell({ :x,    _ }), do: "\033[32m x \033[m"
+  def print_cell({ :o,    _ }), do: "\033[31m o \033[m"
 
 end

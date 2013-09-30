@@ -15,7 +15,7 @@ defmodule TicTacToe do
     start # Insert Game Over Logic Here
   end
 
-  def player_move(board, :o), do: Rules.move(board, :o)
+  def player_move(board, :o), do: Negamax.best_move(board, :o)
   def player_move(board, :x) do
     move = case String.strip(IO.gets('-> ')) do
       ""   -> player_move(board, :x)

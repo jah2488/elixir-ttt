@@ -19,11 +19,7 @@ defmodule DisplayTest do
   end
 
   test "Print Row: Prints row with markers" do
-    assert print_row([{:blank,0}, {'x',1}, {'o',2}]) == " 0 | x | o "
-  end
-
-  test "Print Cell: Prints Marker Cell" do
-    assert print_cell({'x', 0}) == " x "
+    assert print_row([{:blank,0}, {:x,1}, {:o,2}]) == " 0 |\e[32m x \e[m|\e[31m o \e[m"
   end
 
   test "Print Cell: Prints Blank Cell" do

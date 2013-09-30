@@ -1,73 +1,12 @@
 defmodule Rules do
 
-  def move(board, marker) do
-    negawat(board, marker)
-      |> choose_most_common
-  end
-
-  def negawat(board, marker, depth // 4) when depth > 0 do
-
-    moves = available_moves(board)
-
-    move_tree = Enum.map(moves, fn cell ->
-      move = best_move( Board.place_move(board, cell, marker), marker )
-      new_board = Board.place_move(board, move, marker)
-      negawat(new_board, opposite(marker), depth - 1)
-    end)
-
-    move_tree
-      |> remove_empty
-      |> choose_most_common
-      |> List.flatten
-  end
-
-  def remove_empty(list) do
-    Enum.filter(list, fn x -> !Enum.empty?(x) end)
-  end
-
-  def negawat(board, marker, 0) do
-    board
-      |> available_moves
-      |> Enum.map(fn cell ->
-          best_move( Board.place_move(board, cell, marker), marker )
-         end)
-  end
-
-  def choose_most_common([]), do: []
-  def choose_most_common(list) when is_list(list) do
-     [ head | tail ] = Enum.map_reduce(list, [], fn (x, acc) ->
-        { x , if(Enum.member?(acc,x), do: acc -- [x], else: acc ++ [x]) }
-      end) |> tuple_to_list
-
-      Enum.first(head -- List.flatten(tail))
-  end
-
-  def best_move(board, marker) do
-    board
-      |> available_moves
-      |> filter_available_moves(marker)
-      |> take_first_move
-  end
-
-  def take_first_move(board) do
-    Enum.filter(board, fn cell -> is_number(cell) end)
-      |> Enum.first
-  end
-
-  def filter_available_moves(board, marker) do
-    Enum.uniq(
-      Enum.filter(board, fn cell ->
-          player_wins?(Board.place_move(board, cell, marker), marker)
-      end) ++ Enum.filter(board, fn cell -> is_number(cell) end)
-    )
-  end
-
   def available_moves(board) do
     if game_over?(board) do
       []
     else
       Enum.with_index(board)
         |> Enum.map(available_cell(&1))
+        |> Enum.filter(is_number(&1))
     end
   end
 
